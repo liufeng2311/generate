@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <properties>
+  </properties>
+  <settings>
+    <setting name="cacheEnabled" value="true"/>
+  </settings>
+  <environments default="default">
+    <environment id="default">
+      <transactionManager type="org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory"/>
+      <dataSource type="org.apache.ibatis.datasource.pooled.PooledDataSourceFactory">
+        <property name="driver" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+          value="jdbc:mysql://106.54.84.115:3306/cases_lr?characterEncoding=UTF-8"/>
+        <property name="username" value="bmsoft"/>
+        <property name="password" value="bmsoft@123"/>
+      </dataSource>
+    </environment>
+  </environments>
+
+  <mappers>
+    <package name="com.mapper"/>
+  </mappers>
+</configuration>

@@ -1,0 +1,28 @@
+package ${entityPath};
+
+import lombok.Data;
+<#if dateFlag=="true">
+import java.util.Date;
+</#if>
+<#if localDateFlag=="true">
+import java.time.LocalDate;
+</#if>
+import java.io.Serializable;
+
+/**
+ * @author ${author}
+ * @date ${date}
+ * @desc ${table.comment}
+ */
+
+@Data
+public class ${table.javaName} implements Serializable {
+<#list table.columns as column>
+
+  /**
+   * ${column.columnComment}
+   */
+  private ${column.javaColumnType} ${column.javaColumnName};
+</#list>
+
+}

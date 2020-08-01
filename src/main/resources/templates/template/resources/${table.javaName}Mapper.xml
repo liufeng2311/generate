@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${mapperPath}.${table.javaName}Mapper">
+  <sql id="columns">
+	${table.sql}
+  </sql>
+  
+  <insert id="save">
+	insert into ${table.jdbcName} (<include refid="columns"></include>) values 
+	(
+	<#list table.columns as column>
+      <#if !column_has_next><#noparse>#{</#noparse>${column.javaColumnName}}</#if><#if column_has_next><#noparse>#{</#noparse>${column.javaColumnName}},</#if>
+	</#list>
+	)
+  </insert>
+  
+  <insert id="batchSave">
+	insert into ${table.jdbcName} (<include refid="columns"></include>) values 
+    <foreach collection ="list" item="item" separator =",">
+      <#list table.columns as column>
+      <#if column_index=0><#noparse>(#{</#noparse>item.${column.javaColumnName}},</#if><#if column_has_next&&column_index!=0><#noparse>#{</#noparse>item.${column.javaColumnName}},</#if><#if !column_has_next><#noparse>#{</#noparse>item.${column.javaColumnName}})</#if>
+	  </#list>
+    </foreach >
+  </insert>
+
+  <update id="update">
+	 update ${table.jdbcName} set
+	<#list table.columnsExcludeId as column>
+     <#if !column_has_next> ${column.jdbcColumnName} = <#noparse>#{</#noparse>${column.javaColumnName}}</#if><#if column_has_next> ${column.jdbcColumnName} = <#noparse>#{</#noparse>${column.javaColumnName}},</#if>
+	</#list>
+	where id = <#noparse>#{</#noparse>id}
+  </update>
+
+  <delete id="deleteById">
+	 delete from ${table.jdbcName} where id = <#noparse>#{</#noparse>id}
+  </delete>
+
+  <select id="findById" resultType="${entityPath}.${table.javaName}">
+	select <include refid="columns"></include> from ${table.jdbcName} where id = <#noparse>#{</#noparse>id}
+  </select>
+
+  <select id="findAll" resultType="${entityPath}.${table.javaName}">
+	select <include refid="columns"></include> from ${table.jdbcName} 
+	where 1=1
+	<#list table.columnsExcludeId as column>
+	  <#if column.string==false><if test="${column.javaColumnName}!=null"></#if><#if column.string==true><if test="${column.javaColumnName}!=null and ${column.javaColumnName} !=''"></#if>
+		  and ${column.jdbcColumnName} = <#noparse>#{</#noparse>${column.javaColumnName}}
+	   </if>
+	</#list>
+  </select>
+
+</mapper>
