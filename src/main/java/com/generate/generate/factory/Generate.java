@@ -1,7 +1,6 @@
 package com.generate.generate.factory;
 
 import com.generate.generate.domain.Table;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -13,14 +12,18 @@ public interface Generate {
 
 
   /**
-   * 根据模板生成文件
+   * 根据模板和表信息生成文件
+   *
+   * @param tables 需要生成模板的表信息
    */
   void generateFile(List<Table> tables) throws Exception;
 
 
   /**
    * 拼装数据库需要的数据
+   *
+   * @param tableNames 需要生成的表名称
    */
-  List<Table> tableData() throws SQLException, ClassNotFoundException;
+  List<Table> tableData(List<String> tableNames) throws Exception;
 
 }

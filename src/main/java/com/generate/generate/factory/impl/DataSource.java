@@ -2,18 +2,12 @@ package com.generate.generate.factory.impl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
-/**
- * @Author: liufeng
- * @Date: 2020/7/29
- * @desc
- */
 public class DataSource {
 
   /**
-   * 数据路链接
+   * 数据路url
    */
   private String url;
 
@@ -32,17 +26,24 @@ public class DataSource {
    */
   private String password;
 
-  public DataSource(String url, String username, String password) {
+  /**
+   * 数据库名
+   */
+  private String schema;
+
+  public DataSource(String url, String username, String password, String schema) {
     this.url = url;
     this.username = username;
     this.password = password;
+    this.schema = schema;
   }
 
   /**
    * 获取Connection
+   *
    * @return
    */
-  public Connection getConnection() throws ClassNotFoundException, SQLException {
+  public Connection getConnection() throws Exception {
     Class.forName(driver);
     Properties props = new Properties();
     props.put("remarks", "true");
@@ -51,6 +52,10 @@ public class DataSource {
     props.put("password", password);
     Connection conn = DriverManager.getConnection(url, props);
     return conn;
+  }
+
+  public String schema() {
+    return this.schema;
   }
 
 }

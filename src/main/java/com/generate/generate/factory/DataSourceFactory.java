@@ -2,9 +2,6 @@ package com.generate.generate.factory;
 
 
 import com.generate.generate.factory.impl.DataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.StringUtils;
 
 /**
  * @Author: liufeng
@@ -13,19 +10,8 @@ import org.springframework.util.StringUtils;
  */
 public class DataSourceFactory {
 
-  private final static Logger log = LoggerFactory.getLogger(DataSourceFactory.class);
-
-  public static DataSource newInstance(String url, String username, String password) {
-    if (StringUtils.isEmpty(url)) {
-      log.error("数据库url为空");
-    }
-    if (StringUtils.isEmpty(username)) {
-      log.error("数据库username为空");
-    }
-    if (StringUtils.isEmpty(password)) {
-      log.error("数据库password为空");
-    }
-    DataSource dataSource = new DataSource(url, username, password);
+  public static DataSource newInstance(String url, String username, String password, String schema) {
+    DataSource dataSource = new DataSource(url, username, password, schema);
     return dataSource;
   }
 

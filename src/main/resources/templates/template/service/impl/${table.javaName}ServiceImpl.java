@@ -30,7 +30,7 @@ public class ${table.javaName}ServiceImpl implements I${table.javaName}Service {
   @Override
   public void save(${table.javaName}DTO ${table.javaNameLow}) {
 	  ${table.javaName} entity = new ${table.javaName}();
-	  BeanUtils.copyProperties(thirdWorkSchema, entity);
+	  BeanUtils.copyProperties(${table.javaNameLow}, entity);
 	  ${table.javaNameLow}Mapper.save(entity);
   }
   
@@ -53,7 +53,7 @@ public class ${table.javaName}ServiceImpl implements I${table.javaName}Service {
   @Override
   public void update(${table.javaName}DTO ${table.javaNameLow}) {
 	  ${table.javaName} entity = new ${table.javaName}();
-	  BeanUtils.copyProperties(thirdWorkSchema, entity);
+	  BeanUtils.copyProperties(${table.javaNameLow}, entity);
 	  ${table.javaNameLow}Mapper.update(entity);
   }
 
@@ -61,7 +61,9 @@ public class ${table.javaName}ServiceImpl implements I${table.javaName}Service {
   public ${table.javaName}VO findById(String id) {
 	  ${table.javaName}VO vo = new ${table.javaName}VO();
 	  ${table.javaName} entity = ${table.javaNameLow}Mapper.findById(id);
-	  BeanUtils.copyProperties(entity, vo);
+	  if (entity != null) {
+      BeanUtils.copyProperties(entity, vo);
+    }
 	  return vo;
   }
   

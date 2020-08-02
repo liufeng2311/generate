@@ -1,41 +1,58 @@
 package com.generate;
 
-import com.generate.generate.enums.ModeEnum;
 import com.generate.generate.factory.DataSourceFactory;
 import com.generate.generate.factory.Generate;
 import com.generate.generate.factory.GenerateFactory;
 import com.generate.generate.factory.impl.DataSource;
 import com.generate.generate.utils.FileUtils;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 /**
- * @Author: liufeng
- * @Date: 2020/7/29
  * @desc Mysql代码生成器
  */
 public class GenerateFile {
 
-  //模板集合路径
-  public static String templatePath = System.getProperty("user.dir") + "/src/main/resources/templates/template";
+  //项目路径
+  private static final String projectPath = System.getProperty("user.dir");
 
-  //生成文件位置(java文件)
-  public static String fileOutPath = System.getProperty("user.dir") + "/src/main/java/com/generate/demo";
+  //java文件路径
+  private static final String javaPath = projectPath + "/src/main/java";
 
-  //生成文件位置(xml文件)
-  public static String xmlOutPath = System.getProperty("user.dir") + "/src/main/resources/mapper";
+  //resources文件路径
+  private static final String resourcesPath = projectPath + "/src/main/resources";
 
-  //配置文件,指定包路径和字段转换
-  public static String propertyPath = System.getProperty("user.dir") + "/src/main/resources/templates/properties";
+  //模板文件路径
+  private static String templatePath = resourcesPath + "/templates/template";
+
+  //生成java文件路径
+  private static String fileOutPath = javaPath + "/com/generate/demo";
+
+  //生成xml文件路径
+  private static String xmlOutPath = resourcesPath + "/mapper";
+
+  //配置文件路径
+  private static String propertyPath = resourcesPath + "/templates/properties";
 
   //数据库相关配置
-  public static String url = "jdbc:mysql://106.54.84.115:3306/cases_lr?Unicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=GMT%2B8";
-  public static String username = "bmsoft";
-  public static String password = "bmsoft@123";
-  //指定生成的表
-  public static String table = "third_work_schema";
+  private static String url = "jdbc:mysql://localhost:3306/cases_lr?Unicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=GMT%2B8";
+  private static String username = "***";
+  private static String password = "***";
+  //数据库名
+  private static String schema = "cases_lr";
 
-  //生成模式
-  public static ModeEnum mode = ModeEnum.TABLE;
+  //指定生成的表
+  public static List<String> tables = Arrays.asList("third_work_schema");
+  //public static List<String> tables = Arrays.asList("%mem%","%mem","mem%"); //模糊匹配生成
+  //public static List<String> tables = Arrays.asList("%");  //生成所有表
+
+  static {
+    templatePath = FileUtils.formatFilePath(templatePath);
+    fileOutPath = FileUtils.formatFilePath(fileOutPath);
+    xmlOutPath = FileUtils.formatFilePath(xmlOutPath);
+    propertyPath = FileUtils.formatFilePath(propertyPath);
+  }
 
 
   /**
@@ -45,10 +62,11 @@ public class GenerateFile {
     //解析配置文件
     Properties properties = FileUtils.ParseProperties(propertyPath);
     //创建数据库连接
-    DataSource dataSource = DataSourceFactory.newInstance(url, username, password);
+    DataSource dataSource = DataSourceFactory.newInstance(url, username, password, schema);
     //设置生成器
-    Generate generate = GenerateFactory.newInstance(properties, dataSource, templatePath, fileOutPath, xmlOutPath);
+    Generate generate = GenerateFactory
+        .newInstance(properties, dataSource, templatePath, fileOutPath, xmlOutPath);
     //生成模板
-    generate.generateFile(generate.tableData());
+    generate.generateFile(generate.tableData(tables));
   }
 }

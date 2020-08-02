@@ -23,6 +23,7 @@ public class GeneratorService {
    * 模板所在路径
    */
   private String templatePath;
+
   /**
    * 代码生成路径
    */
@@ -32,6 +33,7 @@ public class GeneratorService {
    * xml生成路径
    */
   private String xmlPath;
+
   /**
    * 配置类
    */
@@ -43,7 +45,9 @@ public class GeneratorService {
     this.outPath = outPath;
     this.xmlPath = xmlPath;
     this.conf = conf;
-    conf.setTemplateLoader(new FileTemplateLoader(new File(templatePath)));
+    //此处指定模板的总路径,后续获取模板使用都是相对路径,不指定依旧需要在项目路径上使用相对路径
+    this.conf.setTemplateLoader(new FileTemplateLoader(new File(templatePath)));
+    this.conf.setOutputEncoding("UTF-8");
   }
 
   public GeneratorService() {
@@ -52,50 +56,36 @@ public class GeneratorService {
   /**
    * 扫描所有模板并进行代码生成
    */
-  public void scanTemplatesAndProcess(Map dataMap) throws Exception {
-    //加载文件夹下的所有模板文件
-    List<File> srcFiles = FileUtils.searchAllFile(new File(templatePath));
-    //针对每一个模板文件进行代码生成
-    for (File srcFile : srcFiles) {
-      executeGenerate(dataMap, srcFile);
+  public void scanTemplatesAndProcess(Map data) throws Exception {
+    List<File> files = FileUtils.searchAllFile(templatePath);
+    for (File file : files) {
+      executeGenerate(data, file);
     }
   }
 
   /**
-   * 对某个模板生成代码
+   * 创建文件模板并执行
    */
-  private void executeGenerate(Map dataMap, File srcFile) throws Exception {
-    //获取文件路径
-    String templateFile = srcFile.getAbsolutePath()
-        .replace(this.templatePath, "");
-    //对文件名称进行处理(字符串替换)
-    String outputFilepath = processTemplateString(templateFile, dataMap);
-    //读取模板
+  private void executeGenerate(Map data, File file) throws Exception {
+    //获取文件路径(相对于TemplateLoader的路径,读取模板使用)
+    String templateFile = file.getAbsolutePath().replace(templatePath, "");
     Template template = conf.getTemplate(templateFile);
-    template.setOutputEncoding("UTF-8");
-    String targetFile;
-    if (templateFile.endsWith(".xml")) {
-      targetFile = xmlPath;
-      outputFilepath = outputFilepath.replace("resources", "");
-    } else {
-      targetFile = outPath;
-    }
-    //创建文件
-    File outFile = FileUtils.mkdir(targetFile, outputFilepath);
-    //模板生成
+    String filePath = templateFile.endsWith(".xml") ? xmlPath : outPath;
+    String fileName = processTemplateString(templateFile, data);
+    fileName = fileName.endsWith(".xml") ? fileName.replace("resources", ""):fileName;
+    File outFile = FileUtils.mkdir(filePath, fileName);
     FileWriter fileWriter = new FileWriter(outFile);
-    template.process(dataMap, fileWriter);
+    template.process(data, fileWriter);
     fileWriter.close();
   }
 
   /**
-   * 处理字符串模板
+   * 创建字符串模板并执行
    */
-  private String processTemplateString(String templateString, Map dataMap) throws
-      Exception {
+  private String processTemplateString(String templateString, Map data) throws Exception {
     StringWriter out = new StringWriter();
-    Template template = new Template("demo", new StringReader(templateString), conf);
-    template.process(dataMap, out);
+    Template template = new Template("template", new StringReader(templateString), conf);
+    template.process(data, out);
     return out.toString();
   }
 }

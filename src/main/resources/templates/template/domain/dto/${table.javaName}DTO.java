@@ -2,13 +2,13 @@ package ${dtoPath};
 
 import lombok.Data;
 import java.io.Serializable;
-<#if dateFlag=="true">
+<#if table.dateFlag==true>
 import java.util.Date;
 </#if>
-<#if localDateFlag=="true">
+<#if table.localDateFlag==true>
 import java.time.LocalDate;
 </#if>
-<#if jsonFormatFlag=="true">
+<#if table.jsonFormatFlag==true>
 import com.fasterxml.jackson.annotation.JsonFormat;
 </#if>
 import io.swagger.annotations.ApiModel;

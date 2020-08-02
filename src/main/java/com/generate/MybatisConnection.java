@@ -1,6 +1,5 @@
 package com.generate;
 
-import com.generate.demo.mapper.ThirdWorkSchemaMapper;
 import java.io.IOException;
 import java.io.InputStream;
 import org.apache.ibatis.io.Resources;
@@ -25,9 +24,7 @@ public class MybatisConnection {
     //第四步：获取SqlSession
     SqlSession sqlSession = factory.openSession(true);
     //第五步：获取需要操作的Mapper的实例
-    ThirdWorkSchemaMapper mapper = sqlSession.getMapper(ThirdWorkSchemaMapper.class);
     //第六步：查询并返回结果
-    mapper.findById("1");
   }
 
 }

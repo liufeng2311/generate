@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@EnableSwagger2
+@EnableSwagger2  //添加Swagger文档加测试
 public class GenerateApplication {
 
   public static void main(String[] args) {

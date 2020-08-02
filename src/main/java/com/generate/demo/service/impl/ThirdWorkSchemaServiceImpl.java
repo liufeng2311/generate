@@ -17,7 +17,7 @@ import org.springframework.beans.BeanUtils;
 
 /**
  * @author liuF
- * @date 2020-08-01
+ * @date 2020-08-02
  * @desc 工作范围DTO
  */
  
@@ -61,7 +61,9 @@ public class ThirdWorkSchemaServiceImpl implements IThirdWorkSchemaService {
   public ThirdWorkSchemaVO findById(String id) {
 	  ThirdWorkSchemaVO vo = new ThirdWorkSchemaVO();
 	  ThirdWorkSchema entity = thirdWorkSchemaMapper.findById(id);
-	  BeanUtils.copyProperties(entity, vo);
+	  if (entity != null) {
+      BeanUtils.copyProperties(entity, vo);
+    }
 	  return vo;
   }
   

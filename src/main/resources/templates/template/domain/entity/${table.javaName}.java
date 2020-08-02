@@ -1,10 +1,10 @@
 package ${entityPath};
 
 import lombok.Data;
-<#if dateFlag=="true">
+<#if table.dateFlag==true>
 import java.util.Date;
 </#if>
-<#if localDateFlag=="true">
+<#if table.localDateFlag==true>
 import java.time.LocalDate;
 </#if>
 import java.io.Serializable;

@@ -14,9 +14,9 @@
       <dataSource type="org.apache.ibatis.datasource.pooled.PooledDataSourceFactory">
         <property name="driver" value="com.mysql.jdbc.Driver"/>
         <property name="url"
-          value="jdbc:mysql://106.54.84.115:3306/cases_lr?characterEncoding=UTF-8"/>
-        <property name="username" value="bmsoft"/>
-        <property name="password" value="bmsoft@123"/>
+          value="jdbc:mysql://localhost:3306/cases_lr?characterEncoding=UTF-8"/>
+        <property name="username" value="***"/>
+        <property name="password" value="***"/>
       </dataSource>
     </environment>
   </environments>
