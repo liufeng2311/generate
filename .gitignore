@@ -23,6 +23,7 @@ logs/
 mvnw
 mvnw.cmd
 .mvn/**
+log/**
 
 ### NetBeans ###
 /nbproject/private/

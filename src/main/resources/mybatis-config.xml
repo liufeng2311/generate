@@ -3,25 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  <properties>
-  </properties>
+  <!--spring项目中不需要在该文件中配置数据源-->
   <settings>
     <setting name="cacheEnabled" value="true"/>
+    <setting name="mapUnderscoreToCamelCase" value="true"/>
   </settings>
-  <environments default="default">
-    <environment id="default">
-      <transactionManager type="org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory"/>
-      <dataSource type="org.apache.ibatis.datasource.pooled.PooledDataSourceFactory">
-        <property name="driver" value="com.mysql.jdbc.Driver"/>
-        <property name="url"
-          value="jdbc:mysql://localhost:3306/cases_lr?characterEncoding=UTF-8"/>
-        <property name="username" value="***"/>
-        <property name="password" value="***"/>
-      </dataSource>
-    </environment>
-  </environments>
 
   <mappers>
-    <package name="com.mapper"/>
+    <!--<mapper resource="mapper/ThirdWorkSchemaMapper.xml"></mapper>-->  <!--该配置方式不支持模糊匹配,所以应在application.yml中统一配置-->
   </mappers>
 </configuration>

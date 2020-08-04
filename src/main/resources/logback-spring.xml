@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    debug: 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false。
+    scan: 当此属性设置为true时，配置文件如果发生改变，将会被重新加载，默认值为true。
+    scanPeriod: 设置监测配置文件是否有修改的时间间隔，如果没有给出时间单位，默认单位是毫秒。当scan为true时，此属性生效。默认的时间间隔为1分钟。
+ -->
+<configuration debug="false" scan="false" scanPeriod="1000000 seconds">
+
+  <contextName>logback</contextName>
+  <property name="logPath" value="F:/Sourcetree/generate/log" />
+  <property name="warn" value="/warn" />
+  <property name="error" value="/error" />
+
+  <!--DEBUG级别的日志(白色)-->
+  <appender name="console-debug" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>DEBUG</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} %5p ${PID:-} [%15.15t] %blue(%-40.40logger{39}) : %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <!--INFO级别日志(绿色)-->
+  <appender name="console-info" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>INFO</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} %cyan(%5p) ${PID:-} [%15.15t] %blue(%-40.40logger{39}) : %cyan(%m%n)</pattern>
+    </encoder>
+  </appender>
+
+  <!--WARN级别以上日志(黄色)-->
+  <appender name="console-warn" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>WARN</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} %yellow(%5p) ${PID:-} [%15.15t] %blue(%-40.40logger{39}) : %yellow(%m%n)</pattern>
+    </encoder>
+  </appender>
+
+  <!--ERROR级别以上日志(红色)-->
+  <appender name="console-error" class="ch.qos.logback.core.ConsoleAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>ERROR</level>
+    </filter>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} %red(%5p) ${PID:-} [%15.15t] %blue(%-40.40logger{39}) : %red(%m%n)</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="file-warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>WARN</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <file>${logPath}/${warn}/warn.log</file>
+    <!--定义日志滚动的策略-->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!--定义文件滚动时的文件名的格式-->
+      <fileNamePattern>${logPath}/${warn}/warn-%d{yyyy-MM-dd}.log</fileNamePattern>  <!--TimeBasedRollingPolicy中不能用%i-->
+      <!--保存60个文件，超过就删除旧的-->
+      <maxHistory>60</maxHistory>
+      <!-- 日志最大值为20G,超出会删除原有的-->
+      <totalSizeCap>1GB</totalSizeCap>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <!--每个日志文件最大100MB-->
+      <maxFileSize>100MB</maxFileSize>
+    </triggeringPolicy>
+    <!--定义输出格式-->
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:-} [%15.15t] %-40.40logger{39} : %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="file-error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>ERROR</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <file>${logPath}/${error}/error.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${logPath}/${error}/error-%d{yyyy-MM-dd}.log</fileNamePattern>  <!--TimeBasedRollingPolicy中不能用%i-->
+      <maxHistory>60</maxHistory>
+      <totalSizeCap>1GB</totalSizeCap>
+    </rollingPolicy>
+    <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+      <maxFileSize>100MB</maxFileSize>
+    </triggeringPolicy>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:-} [%15.15t] %-40.40logger{39} : %m%n</pattern>
+    </encoder>
+  </appender>
+
+  <!--root为默认的输出配置,定义了控制台和文件两种输出,同时输出到控制台和文件-->
+  <!--控制台不处理debug日志,需要debug的单独输出-->
+  <root level="INFO">
+    <appender-ref ref="file-warn"/>
+    <appender-ref ref="file-error"/>
+    <appender-ref ref="console-info"/>
+    <appender-ref ref="console-warn"/>
+    <appender-ref ref="console-error"/>
+  </root>>
+
+  <!--查看功能模块SQL日志,additivity="false"表示不再使用root输出,由于root级别为info,此处可以不用设置-->
+  <logger name="com.generate.demo.mapper" level="debug">
+    <appender-ref ref="console-debug"/>
+  </logger>
+
+</configuration>

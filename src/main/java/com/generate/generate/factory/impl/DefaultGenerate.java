@@ -83,13 +83,6 @@ public class DefaultGenerate implements Generate {
     tables.close();
   }
 
-  public static void main(String[] args) {
-    String aa = "%abcdef%";
-    //System.out.println(aa.substring(1));
-    System.out.println(aa.indexOf("%", 1));
-    //System.out.println(aa.substring(0, aa.length() - 1));
-  }
-
   /**
    * 表名模糊匹配
    */

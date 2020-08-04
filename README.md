@@ -23,7 +23,7 @@
     │  ├─application.yml                        项目配置文件
     │  ├─mybatis-config.xml                     mybatis配置文件
     
-二、使用说明(生成代码步骤)
+二、使用说明(生成代码步骤)(同目录自行解压模板zip)
 * 1.项目启动类com.generate.GenerateFile
   2.指定数据库连接、指定数据库schema、指定需要生成的表名(支持模糊匹配)
   3.默认生成的java代码位于src/main/java/com.generate.demo目录下

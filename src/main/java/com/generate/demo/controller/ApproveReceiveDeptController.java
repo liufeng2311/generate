@@ -1,11 +1,11 @@
-package ${controllerPath};
+package com.generate.demo.controller;
 
-import com.github.pagehelper.PageInfo;
-import ${servicePath}.I${table.javaName}Service;
-import ${dtoPath}.${table.javaName}DTO;
-import ${voPath}.${table.javaName}VO;
-import ${dtoPath}.${table.javaName}QueryDTO;
-import ${resultPath}.ResultModel;
+import com.generate.demo.result.PageInfo;
+import com.generate.demo.service.IApproveReceiveDeptService;
+import com.generate.demo.domain.dto.ApproveReceiveDeptDTO;
+import com.generate.demo.domain.vo.ApproveReceiveDeptVO;
+import com.generate.demo.domain.dto.ApproveReceiveDeptQueryDTO;
+import com.generate.demo.result.ResultModel;
 import java.util.List;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,60 +18,58 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author ${author}
- * @date ${date}
- * @desc ${table.comment}Controller
+ * @author liu
+ * @date 2020-08-04
+ * @desc Controller
  */
  
 @RestController
-@RequestMapping(value = "/${table.javaNameLow}")
-@Api(tags = "${table.comment}")
-public class ${table.javaName}Controller {
+@RequestMapping(value = "/approveReceiveDept")
+@Api(tags = "")
+public class ApproveReceiveDeptController {
 
   @Autowired
-  private I${table.javaName}Service ${table.javaNameLow}Service;
+  private IApproveReceiveDeptService approveReceiveDeptService;
 
   @PostMapping(value = "/save")
   @ApiOperation(value = "新增")
-  public ResultModel save(@RequestBody ${table.javaName}DTO save) {
-    ${table.javaNameLow}Service.save(save);
+  public ResultModel save(@RequestBody ApproveReceiveDeptDTO save) {
+    approveReceiveDeptService.save(save);
     return ResultModel.success();
   }
-  
+
   @PostMapping(value = "/batchSave")
   @ApiOperation(value = "批量新增")
-  public ResultModel save(@RequestBody List<${table.javaName}DTO> save) {
-    ${table.javaNameLow}Service.batchSave(save);
+  public ResultModel save(@RequestBody List<ApproveReceiveDeptDTO> save) {
+    approveReceiveDeptService.batchSave(save);
     return ResultModel.success();
   }
 
   @GetMapping(value = "delete/{id}")
   @ApiOperation(value = "删除")
   public ResultModel update(@PathVariable(value = "id") String id) {
-    ${table.javaNameLow}Service.deleteById(id);
+    approveReceiveDeptService.deleteById(id);
     return ResultModel.success();
   }
 
   @GetMapping(value = "find/{id}")
   @ApiOperation(value = "查询")
   public ResultModel findById(@PathVariable(value = "id") String id) {
-    ${table.javaName}VO vo = ${table.javaNameLow}Service.findById(id);
+    ApproveReceiveDeptVO vo = approveReceiveDeptService.findById(id);
     return ResultModel.success(vo);
   }
-	
+
   @PostMapping(value = "update")
   @ApiOperation(value = "更新")
-  public ResultModel findById(@RequestBody ${table.javaName}DTO save) {
-    ${table.javaNameLow}Service.update(save);
+  public ResultModel findById(@RequestBody ApproveReceiveDeptDTO save) {
+    approveReceiveDeptService.update(save);
     return ResultModel.success();
   }
 
-
   @PostMapping(value = "/findAll")
   @ApiOperation(value = "查询全部")
-  public ResultModel findAll(@RequestBody ${table.javaName}QueryDTO query) {
-    PageInfo<${table.javaName}VO> info = ${table.javaNameLow}Service.findAll(query);
+  public ResultModel findAll(@RequestBody ApproveReceiveDeptQueryDTO query) {
+    PageInfo<ApproveReceiveDeptVO> info = approveReceiveDeptService.findAll(query);
     return ResultModel.success(info);
   }
-
 }

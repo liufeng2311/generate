@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.generate.demo.mapper.ApproveSendDeptMapper">
+  <sql id="columns">
+	id,dept_name,dept_no,area_code,area_value,state,admin_tel,admin_name,remarks,pid
+  </sql>
+  
+  <insert id="save">
+	insert into approve_send_dept (<include refid="columns"/>) values
+	(
+      #{id},
+      #{deptName},
+      #{deptNo},
+      #{areaCode},
+      #{areaValue},
+      #{state},
+      #{adminTel},
+      #{adminName},
+      #{remarks},
+      #{pid}
+	)
+  </insert>
+  
+  <insert id="batchSave">
+	insert into approve_send_dept (<include refid="columns"/>) values
+    <foreach collection ="list" item="item" separator =",">
+      (#{item.id},
+      #{item.deptName},
+      #{item.deptNo},
+      #{item.areaCode},
+      #{item.areaValue},
+      #{item.state},
+      #{item.adminTel},
+      #{item.adminName},
+      #{item.remarks},
+      #{item.pid})
+    </foreach >
+  </insert>
+
+  <update id="update">
+	 update approve_send_dept set
+      dept_name = #{deptName},
+      dept_no = #{deptNo},
+      area_code = #{areaCode},
+      area_value = #{areaValue},
+      state = #{state},
+      admin_tel = #{adminTel},
+      admin_name = #{adminName},
+      remarks = #{remarks},
+      pid = #{pid}
+	where id = #{id}
+  </update>
+
+  <delete id="deleteById">
+	 delete from approve_send_dept where id = #{id}
+  </delete>
+
+  <select id="findById" resultType="com.generate.demo.domain.entity.ApproveSendDept">
+	select <include refid="columns"/> from approve_send_dept where id = #{id}
+  </select>
+
+  <select id="findAll" resultType="com.generate.demo.domain.entity.ApproveSendDept">
+	select <include refid="columns"/> from approve_send_dept
+	where 1=1
+	  <if test="deptName!=null and deptName !=''">
+		  and dept_name = #{deptName}
+	   </if>
+	  <if test="deptNo!=null and deptNo !=''">
+		  and dept_no = #{deptNo}
+	   </if>
+	  <if test="areaCode!=null and areaCode !=''">
+		  and area_code = #{areaCode}
+	   </if>
+	  <if test="areaValue!=null and areaValue !=''">
+		  and area_value = #{areaValue}
+	   </if>
+	  <if test="state!=null and state !=''">
+		  and state = #{state}
+	   </if>
+	  <if test="adminTel!=null and adminTel !=''">
+		  and admin_tel = #{adminTel}
+	   </if>
+	  <if test="adminName!=null and adminName !=''">
+		  and admin_name = #{adminName}
+	   </if>
+	  <if test="remarks!=null and remarks !=''">
+		  and remarks = #{remarks}
+	   </if>
+	  <if test="pid!=null and pid !=''">
+		  and pid = #{pid}
+	   </if>
+  </select>
+
+</mapper>
