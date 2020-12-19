@@ -7,4 +7,9 @@ package com.generate.reset;
  */
 public class BBB {
 
+
+  public static void main(String[] args) {
+    System.out.println("11111111111");
+  }
+
 }
