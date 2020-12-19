@@ -5,9 +5,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #设置serverTimezone=GMT%2B8属性,否则数据库存在八小时时差
-    url: jdbc:mysql://192.168.64.152:3307/liufeng?Unicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=GMT%2B8
-    username: root
-    password: liufeng
+    url: jdbc:mysql://106.54.84.115:3306/cases_lr?useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&useSSL=false&serverTimezone=GMT%2B8
+    username: bmsoft
+    password: bmsoft@123
 
 mybatis:
   #指定mybatis配置文件,mybatis-config.xml放在resources可以不指定,该位置为读取的默认路径(该处只是为了说明才定义的)

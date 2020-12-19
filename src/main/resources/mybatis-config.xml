@@ -3,24 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-  <properties>
-    <property name="driver" value="com.mysql.jdbc.Driver"/>
-    <property name="url" value="jdbc:mysql://192.168.64.156:3307/liufeng?useUnicode=true&amp;characterEncoding=UTF8&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true&amp;useSSL=false"/>
-    <property name="username" value="root"/>
-    <property name="password" value="liufeng"/>
-  </properties>
-  <environments default="development" >
-    <environment id="development">
-      <transactionManager type="JDBC"/>
-      <dataSource type="POOLED">
-        <property name="driver" value="${driver}"/>
-        <property name="url" value="${url}"/>
-        <property name="username" value="${username}"/>
-        <property name="password" value="${password}"/>
-      </dataSource>
-    </environment>
-  </environments>
+  <!--spring项目中不需要在该文件中配置数据源-->
+  <settings>
+    <setting name="cacheEnabled" value="true"/>
+    <setting name="mapUnderscoreToCamelCase" value="true"/>
+  </settings>
+
   <mappers>
-    <package name="com.generate.demo.mapper"/>
+    <!--<mapper resource="mapper/ThirdWorkSchemaMapper.xml"></mapper>-->  <!--该配置方式不支持模糊匹配,所以应在application.yml中统一配置-->
   </mappers>
 </configuration>

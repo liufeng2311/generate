@@ -36,14 +36,14 @@ public class GenerateFile {
   private static String propertyPath = resourcesPath + "/templates/properties";
 
   //数据库相关配置
-  private static String url = "jdbc:mysql://192.168.64.156:3307/liufeng?Unicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=GMT%2B8";
-  private static String username = "root";
-  private static String password = "liufeng";
+  private static String url = "jdbc:mysql://106.54.84.115:3306/cases_lr?Unicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=GMT%2B8";
+  private static String username = "bmsoft";
+  private static String password = "bmsoft@123";
   //数据库名
-  private static String schema = "liufeng";
+  private static String schema = "cases_lr";
 
   //指定生成的表
-  static List<String> tables = Arrays.asList("person_info");
+  static List<String> tables = Arrays.asList("approve_receive_dept","approve_send_dept");
   //public static List<String> tables = Arrays.asList("%mem%","%mem","mem%"); //模糊匹配生成
   //public static List<String> tables = Arrays.asList("%");  //生成所有表
 

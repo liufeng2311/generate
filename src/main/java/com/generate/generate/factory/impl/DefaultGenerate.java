@@ -109,11 +109,11 @@ public class DefaultGenerate implements Generate {
   }
 
   /**
-   * 获取表所有字段,使用逗号分隔,使用``防止为关键字
+   * 获取表所有字段,使用逗号分隔
    */
   private void sqlIncludeId(Table table) {
     String sqlIncludeId = table.getColumns().stream()
-        .map(x -> "`" + x.getJdbcColumnName() + "`")
+        .map(Column::getJdbcColumnName)
         .collect(Collectors.joining(","));
     table.setSql(sqlIncludeId);
   }
