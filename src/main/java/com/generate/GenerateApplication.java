@@ -11,5 +11,4 @@ public class GenerateApplication {
   public static void main(String[] args) {
     SpringApplication.run(GenerateApplication.class, args);
   }
-
 }
