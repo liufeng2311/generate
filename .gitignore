@@ -24,7 +24,6 @@ mvnw
 mvnw.cmd
 .mvn/**
 log/**
-src/main/resources/templates
 
 ### NetBeans ###
 /nbproject/private/

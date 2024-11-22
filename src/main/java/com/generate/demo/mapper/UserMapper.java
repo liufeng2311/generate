@@ -1,26 +1,26 @@
 package com.generate.demo.mapper;
 
-import com.generate.demo.domain.entity.ApproveSendDept;
-import com.generate.demo.domain.dto.ApproveSendDeptQueryDTO;
+import com.generate.demo.domain.entity.User;
+import com.generate.demo.domain.dto.UserQueryDTO;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @author liu
- * @date 2020-08-04
+ * @date 2024-11-22
  * @desc DTO
  */
  
 @Mapper
-public interface ApproveSendDeptMapper {
+public interface UserMapper {
 
   /**
    * 新增
    *
-   * @param  approveSendDept
+   * @param  user
    * @return
    */
-  boolean save(ApproveSendDept approveSendDept);
+  boolean save(User user);
   
   /**
    * 批量新增
@@ -28,7 +28,7 @@ public interface ApproveSendDeptMapper {
    * @param  list
    * @return
    */
-  boolean batchSave(List<ApproveSendDept> list);
+  boolean batchSave(List<User> list);
   
    /**
    * 删除
@@ -40,10 +40,10 @@ public interface ApproveSendDeptMapper {
     /**
    * 修改
    *
-   * @param approveSendDept
+   * @param user
    * @return
    */
-  boolean update(ApproveSendDept approveSendDept);
+  boolean update(User user);
 
   /**
    * 根据ID查询单个
@@ -51,7 +51,7 @@ public interface ApproveSendDeptMapper {
    * @param id
    * @return
    */
-  ApproveSendDept findById(String id);
+  User findById(String id);
 
   /**
    * 根据条件查询列表
@@ -59,6 +59,6 @@ public interface ApproveSendDeptMapper {
    * @param query
    * @return 
    */
-  List<ApproveSendDept> findAll(ApproveSendDeptQueryDTO query);
+  List<User> findAll(UserQueryDTO query);
 
 }

@@ -1,13 +1,14 @@
 package com.generate;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Properties;
+
 import com.generate.generate.factory.DataSourceFactory;
 import com.generate.generate.factory.Generate;
 import com.generate.generate.factory.GenerateFactory;
 import com.generate.generate.factory.impl.DataSource;
 import com.generate.generate.utils.FileUtils;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
 
 /**
  * @desc Mysql代码生成器
@@ -36,14 +37,14 @@ public class GenerateFile {
   private static String propertyPath = resourcesPath + "/templates/properties";
 
   //数据库相关配置
-  private static String url = "jdbc:mysql://106.54.84.115:3306/cases_lr?Unicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=GMT%2B8";
-  private static String username = "bmsoft";
-  private static String password = "bmsoft@123";
+  private static String url = "jdbc:mysql://localhost:3306/test4?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useAffectedRows=true&connectTimeout=6000&socketTimeout=3000";
+  private static String username = "root";
+  private static String password = "admin";
   //数据库名
-  private static String schema = "cases_lr";
+  private static String schema = "test4";
 
   //指定生成的表
-  static List<String> tables = Arrays.asList("approve_receive_dept","approve_send_dept");
+  static List<String> tables = Arrays.asList("user");
   //public static List<String> tables = Arrays.asList("%mem%","%mem","mem%"); //模糊匹配生成
   //public static List<String> tables = Arrays.asList("%");  //生成所有表
 
@@ -65,7 +66,7 @@ public class GenerateFile {
     DataSource dataSource = DataSourceFactory.newInstance(url, username, password, schema);
     //设置生成器
     Generate generate = GenerateFactory
-        .newInstance(properties, dataSource, templatePath, fileOutPath, xmlOutPath);
+      .newInstance(properties, dataSource, templatePath, fileOutPath, xmlOutPath);
     //生成模板
     generate.generateFile(generate.tableData(tables));
   }
